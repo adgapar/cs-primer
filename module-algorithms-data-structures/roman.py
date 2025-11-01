@@ -53,6 +53,31 @@ def convert_to_romain(n: int) -> str:
     return roman
 
 
+def convert_to_romain_v2(n: int) -> str:
+    parts = {
+        1000: 'M',
+        900: 'CM',
+        500: 'D',
+        400: 'CD',
+        100: 'C',
+        90: 'XC',
+        50: 'L',
+        40: 'XL',
+        10: 'X',
+        9: 'IX',
+        5: 'V',
+        4: 'IV',
+        1: 'I'
+    }
+
+    if n <= 0:
+        return ''
+
+    for int_num, roman in parts.items():
+        if int_num <= n:
+            return roman + convert_to_romain_v2(n-int_num)
+
+
 if __name__ == "__main__":
     cases = [
         (1, 'I'),
@@ -87,5 +112,5 @@ if __name__ == "__main__":
     ]
 
     for num, exp in cases:
-        result = convert_to_romain(num)
+        result = convert_to_romain_v2(num)
         assert result == exp, f"Failed in test case ({num},{exp}), got {result}"
